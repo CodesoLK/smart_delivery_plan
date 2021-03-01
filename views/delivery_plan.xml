@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<flectra>
+    <data>
+
+        <record id="inherit_view_order_line_tree" model="ir.ui.view">
+            <field name="name">pending.delivery.order.tree</field>
+            <field name="model">sale.order.line</field>
+            <field name="arch" type="xml">
+                <tree string="Pending Deliveries" create="false">
+                    <field name="order_date"/>
+                    <field name="order_id"/>
+                    <field name="product_id"/>
+                    <field name="order_partner_id"/>
+                    <field name="name"/>
+                    <field name="salesman_id"/>
+                    <field name="product_uom_qty" string="Qty"/>
+                    <field name="qty_delivered"/>
+                    <field name="qty_delivery_available"/>
+                    <field name="product_uom" string="Unit of Measure" groups="product.group_uom"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_pending_delivery_list" model="ir.actions.act_window">
+            <field name="name">Pending Deliveries</field>
+            <field name="res_model">sale.order.line</field>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="inherit_view_order_line_tree"/>
+            <field name="context">{}</field>
+            <field name="domain">[('state', 'in', ['sale'])]</field>
+        </record>
+
+        <menuitem id="pending_delivery_lines"
+            parent="sale.sale_order_menu"
+            action="action_pending_delivery_list"
+            sequence="5"/>
+
+
+    </data>
+</flectra>
