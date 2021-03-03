@@ -17,6 +17,7 @@
     'depends': ['sale'],
     'data': [
         'views/delivery_plan.xml',
+        'views/next_day_delivery_plan.xml',
     ],
 
     'installable': True,
