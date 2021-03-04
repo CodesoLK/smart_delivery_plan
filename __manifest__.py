@@ -18,6 +18,7 @@
     'data': [
         'views/delivery_plan.xml',
         'views/next_day_delivery_plan.xml',
+        'reports/report.xml'
     ],
 
     'installable': True,

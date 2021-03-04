@@ -34,7 +34,7 @@ class PendingDeliveryPlan(models.Model):
         Compute the quantity to be delivered. .
         """
         for line in self:
-            if line.product_uom_qty and line.qty_delivered:
+            if line.product_uom_qty:
                 line.qty_delivery_available = line.product_uom_qty - line.qty_delivered
 
 
