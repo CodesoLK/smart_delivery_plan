@@ -19,6 +19,7 @@
                             <page string="Delivery Lines">
                                 <field name="delivery_lines" mode="tree">
                                     <tree string="Sales Order Lines" editable="bottom">
+                                        <field name="priority_number"/>
                                         <field name="order_date"/>
                                         <field name="order_id"/>
                                         <field name="product_id"/>
@@ -54,7 +55,8 @@
             <field name="name">next.day.delivery.plan.tree</field>
             <field name="model">next.day.delivery.lines</field>
             <field name="arch" type="xml">
-                <tree string="Next Day Delivery Lines" create="false">
+                <tree string="Next Day Delivery Lines">
+                    <field name="priority_number"/>
                     <field name="order_date"/>
                     <field name="order_id"/>
                     <field name="product_id"/>

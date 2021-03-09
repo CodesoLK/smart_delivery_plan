@@ -37,25 +37,25 @@ class NextDayDeliveryPlan(models.Model):
 class NextDayDeliveryLines(models.Model):
     _name = 'next.day.delivery.lines'
 
+    priority_number = fields.Integer(string="Priority Number")
     delivery_plan_id = fields.Many2one(comodel_name='next.day.delivery.plan', string='Delivery Plan', required=True,
                                        ondelete='cascade', index=True,
                                        copy=False)
 
-    order_date = fields.Date(string='Order Date')
+    order_date = fields.Date(string='Order Date', readonly=True)
     order_id = fields.Many2one('sale.order', string='Order Reference', required=True, ondelete='cascade', index=True,
-                               copy=False)
+                               copy=False, readonly=True)
 
-    order_partner_id = fields.Many2one(related='order_id.partner_id', store=True, string='Customer')
+    order_partner_id = fields.Many2one(related='order_id.partner_id', store=True, string='Customer', readonly=True)
     product_id = fields.Many2one(comodel_name='product.product', string='Product', domain=[('sale_ok', '=', True)],
-                                 change_default=True, ondelete='restrict', required=True)
+                                 change_default=True, ondelete='restrict', required=True, readonly=True)
     product_uom_qty = fields.Float(string='Quantity', digits=dp.get_precision('Product Unit of Measure'), required=True,
-                                   default=1.0)
+                                   default=1.0, readonly=True)
     qty_delivered = fields.Float(string='Delivered', copy=False, digits=dp.get_precision('Product Unit of Measure'),
-                                 default=0.0)
+                                 default=0.0, readonly=True)
     qty_delivery_available = fields.Float(string='To Deliver', readonly=True, store=True,
         digits=dp.get_precision('Product Unit of Measure'))
     plan_to_deliver = fields.Integer(string='Plan to Deliver')
-    priority = fields.Char(string='Priority')
     product_uom = fields.Many2one('product.uom', string='Unit of Measure', required=True)
 
     @api.model

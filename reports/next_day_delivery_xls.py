@@ -11,32 +11,32 @@ class NextDayDeliveryReportXls(models.AbstractModel):
         sheet = workbook.add_worksheet('Nexy Day Delivery Plan')
                
         # Column headers
-        sheet.write(3,0, 'Priority Number', table_header_style)
-        sheet.write(3,1, 'Order Date', table_header_style)
-        sheet.write(3,2, 'Order Number', table_header_style)
-        sheet.write(3,3, 'Product', table_header_style)
-        sheet.write(3,4, 'Customer', table_header_style)
-        sheet.write(3,5, 'Order QTY', table_header_style)
-        sheet.write(3,6, 'Delivered QTY', table_header_style)
-        sheet.write(3,7, 'To Delivered', table_header_style)
-        sheet.write(3,8, 'Planing to Deliver', table_header_style)
+        sheet.merge_range('A4:A4', 'Pr.Num', table_header_style)
+        sheet.merge_range('B4:B4', 'Or.Date', table_header_style)
+        sheet.merge_range('C4:D4', 'Order Number', table_header_style)
+        sheet.merge_range('E4:F4', 'Product', table_header_style)
+        sheet.merge_range('G4:I4', 'Customer', table_header_style)
+        sheet.merge_range('J4:J4', 'Or.QTY', table_header_style)
+        sheet.merge_range('K4:K4', 'Del.QTY', table_header_style)
+        sheet.merge_range('L4:L4', 'To Delivered', table_header_style)
+        sheet.merge_range('M4:M4', 'Planing to Deliver', table_header_style)
 
         for line in lines:
             # Title of the report
-            sheet.write_merge(1, 1, 1,10, 'Delivery Plan For ' + ' '+ line.delivery_date, title_format)
+            sheet.merge_range('A2:G3', 'Delivery Plan For ' + ' '+ line.delivery_date, title_format)
             
             if line.delivery_lines:
-                row_number = 4
+                row_number = 5
                 for delivery_line in line.delivery_lines:
-                    sheet.write(row_number, 0, '0', table_header_style)
-                    sheet.write(row_number, 1, delivery_line.order_date, table_header_style)
-                    sheet.write(row_number, 2, delivery_line.order_id.name, table_header_style)
-                    sheet.write(row_number, 3, delivery_line.product_id.name, table_header_style)
-                    sheet.write(row_number, 4, delivery_line.order_partner_id.name, table_header_style)
-                    sheet.write(row_number, 5, delivery_line.product_uom_qty, table_header_style)
-                    sheet.write(row_number, 6, delivery_line.qty_delivered, table_header_style)
-                    sheet.write(row_number, 7, delivery_line.qty_delivery_available, table_header_style)
-                    sheet.write(row_number, 8, delivery_line.plan_to_deliver, table_header_style)
+                    sheet.merge_range(row_number, row_number, 0, 0, delivery_line.priority_number, table_header_style)
+                    sheet.merge_range(row_number, row_number, 1, 1, delivery_line.order_date, table_header_style)
+                    sheet.merge_range(row_number, row_number, 2, 3, delivery_line.order_id.name, table_header_style)
+                    sheet.merge_range(row_number, row_number, 4, 5, delivery_line.product_id.name, table_header_style)
+                    sheet.merge_range(row_number, row_number, 6, 8, delivery_line.order_partner_id.name, table_header_style)
+                    sheet.merge_range(row_number, row_number, 9, 9, delivery_line.product_uom_qty, table_header_style)
+                    sheet.merge_range(row_number, row_number, 10, 10, delivery_line.qty_delivered, table_header_style)
+                    sheet.merge_range(row_number, row_number, 11, 11, delivery_line.qty_delivery_available, table_header_style)
+                    sheet.merge_range(row_number, row_number, 12, 12, delivery_line.plan_to_deliver, table_header_style)
 
                     row_number += 1
         
